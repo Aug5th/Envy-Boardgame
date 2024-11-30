@@ -13,26 +13,8 @@ public class Initialization : MonoBehaviour
     }
     async void Start()
     {
-        await UnityServices.InitializeAsync();
-
-        if (UnityServices.State == ServicesInitializationState.Initialized)
-        {
-            AuthenticationService.Instance.SignedIn += OnSignedIn;
-
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-            if (AuthenticationService.Instance.IsSignedIn)
-            {
-                string userName = PlayerPrefs.GetString("username");
-                if (userName == "")
-                {
-                    userName = $"Player-{Random.Range(1, 1000)}";
-                    PlayerPrefs.SetString("username", userName);
-                }
-
-                SceneManager.LoadScene("Menu");
-            }
-        }
+        await Authentication.LoginAnonymous();
+        SceneManager.LoadScene("Menu");
     }
 
     private void LoadLoadingScene()
@@ -40,11 +22,6 @@ public class Initialization : MonoBehaviour
         if (!SceneManager.GetSceneByName("Loading").isLoaded)
         {
             SceneManager.LoadSceneAsync("Loading", LoadSceneMode.Additive);
-
         }
-    }
-    private void OnSignedIn()
-    {
-        Debug.Log($"AccessToken : {AuthenticationService.Instance.AccessToken}");
     }
 }
