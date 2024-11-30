@@ -11,11 +11,6 @@ public class DiceRoller : MonoBehaviour
         dices = GetComponentsInChildren<Dice>();
     }
 
-    private void Start()
-    {
-        
-    }
-
     public void RollDices()
     {
         foreach (var dice in dices)

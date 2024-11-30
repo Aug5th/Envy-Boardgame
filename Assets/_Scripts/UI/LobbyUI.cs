@@ -79,13 +79,13 @@ public class LobbyUI : MonoBehaviour
             return;
         }
 
-        if (player.GameTag.Equals("Member"))
+        if (!player.IsHost())
         {
             _startButton.gameObject.SetActive(false);
             _readyButton.gameObject.SetActive(!player.IsReady);
             _cancelButton.gameObject.SetActive(player.IsReady);
         }
-        else if (player.GameTag.Equals("Host") && LobbyManager.Instance.IsLoobyReady)
+        else if (LobbyManager.Instance.IsLoobyReady)
         {
             Debug.Log("Lobby not ready");
             _startButton.gameObject.SetActive(true);
@@ -104,7 +104,7 @@ public class LobbyUI : MonoBehaviour
     private void ReadyToStartLobby()
     {
         var player = LobbyManager.Instance.CurrentPlayer;
-        if (player != null && player.GameTag.Equals("Host"))
+        if (player != null && player.IsHost())
         {
             _startButton.gameObject.SetActive(true);
             _readyButton.gameObject.SetActive(false);

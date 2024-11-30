@@ -32,6 +32,11 @@ public class LobbyPlayerData
         _isReady = isReady;
     }
 
+    public bool IsHost()
+    {
+        return _gameTag.Equals("Host");
+    }
+
     public Dictionary<string, string> GetData()
     {
         return new Dictionary<string, string>()
@@ -66,5 +71,4 @@ public class LobbyPlayerData
         }
 
     }
-
 }
